@@ -3,11 +3,11 @@
 internal class Ligne
 {
     public int Quantity { get; set; }
-    public Article article { get; set; }
+    public Article Article { get; set; }
 
-    public Ligne(Article articl, int quantity)
+    public Ligne(Article article, int quantity)
     {
         Quantity = quantity;
-        this.article = article;
+        Article = article;
     }
 }

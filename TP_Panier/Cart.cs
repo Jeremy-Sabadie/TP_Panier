@@ -19,7 +19,7 @@ internal class Cart
     public void AddToCart(Article article)
     {
 
-        Ligne ligne = lignes.First(ligne => ligne.article.Equals(article));
+        Ligne ligne = lignes.FirstOrDefault(ligne => ligne.Article.Equals(article));
         if (ligne is not null)
         {
             ligne.Quantity += 1;
@@ -39,7 +39,7 @@ internal class Cart
         double Total = 0;
         for (int i = 0; i < lignes.Count; i++)
         {
-            Total = Total + lignes[i].article.Price * lignes[i].Quantity;
+            Total = Total + lignes[i].Article.Price * lignes[i].Quantity;
         }
         return Total;
     }
@@ -47,7 +47,7 @@ internal class Cart
     {
         for (int i = 0; i < lignes.Count; i++)
         {
-            Console.WriteLine($"{lignes[i].article.Denomination}|prix:{lignes[i].article.Price * lignes[i].Quantity} | référence:{lignes[i].article.Ref}|");
+            Console.WriteLine($"{lignes[i].Article.Denomination}|prix:{lignes[i].Article.Price * lignes[i].Quantity} | référence:{lignes[i].Article.Ref}|");
         }
         Console.WriteLine($"total= {Total}€");
     }

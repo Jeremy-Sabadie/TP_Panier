@@ -4,7 +4,7 @@
     {
         public Article(int quantity, float price, string denomination)
         {
-            Ref = new Guid();
+            Ref = Guid.NewGuid();
             Quantity = quantity;
             Price = price;
             Denomination = denomination;
