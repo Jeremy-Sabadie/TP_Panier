@@ -7,7 +7,7 @@ internal class Cart
     public float Total { get; private set; }
     public List<Ligne> lignes = new List<Ligne>();
 
-    public Cart(Guid Number, DateOnly creation)
+    public Cart()
     {
         this.creation = DateTime.Now;
         Number = new Guid();

@@ -2,7 +2,7 @@
 {
     internal class Article
     {
-        public Article(Guid Ref, int quantity, float price, string denomination)
+        public Article(int quantity, float price, string denomination)
         {
             Ref = new Guid();
             Quantity = quantity;
