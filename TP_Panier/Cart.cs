@@ -5,13 +5,12 @@ internal class Cart
     public Guid Number { get; set; }
     public DateTime creation { get; set; }
     public float Total { get; private set; }
-    private List<Article> articles = new List<Article>();
+    public List<Ligne> lignes = new List<Ligne>();
 
     public Cart(Guid Number, DateOnly creation)
     {
         this.creation = DateTime.Now;
         Number = new Guid();
-        this.articles = articles;
     }
     /// <summary>
     /// Méthode pour ajouter l'article créé.
@@ -19,27 +18,42 @@ internal class Cart
     /// <param name="article"></param>
     public void AddToCart(Article article)
     {
-        if (articles.Contains(article))
+
+        Ligne ligne = lignes.First(ligne => ligne.article.Equals(article));
+        if (ligne is not null)
         {
-            Article article = articles.Find(a => a.Equals(article));
-            article.Quantity += 1;
+            ligne.Quantity += 1;
         }
+        else
+        {
+            lignes.Add(new Ligne(article, 1));
+        }
+
     }
-}
-/// <summary>
-/// Méthode qui parcourt la liste d'article et qui calcule son total.
-/// </summary>
-/// <returns></returns>
-public double TotalCalculate()
-{
-    double Total = 0;
-    for (int i = 0; i < articles.Count; i++)
+    /// <summary>
+    /// Méthode qui parcourt la liste d'article et qui calcule son total.
+    /// </summary>
+    /// <returns></returns>
+    public double TotalCalculate()
     {
-        Total = Total + articles[i].Price;
+        double Total = 0;
+        for (int i = 0; i < lignes.Count; i++)
+        {
+            Total = Total + lignes[i].article.Price * lignes[i].Quantity;
+        }
+        return Total;
     }
-    return Total;
-}
+    public void CartPrint()
+    {
+        for (int i = 0; i < lignes.Count; i++)
+        {
+            Console.WriteLine($"{lignes[i].article.Denomination}|prix:{lignes[i].article.Price * lignes[i].Quantity} | référence:{lignes[i].article.Ref}|");
+        }
+        Console.WriteLine($"total= {Total}€");
+    }
 
-
-
+    public override string? ToString()
+    {
+        return base.ToString();
+    }
 }
