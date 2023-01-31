@@ -4,7 +4,6 @@ internal class Cart
 {
     public Guid Number { get; set; }
     public DateTime creation { get; set; }
-    public float Total { get; private set; }
     public List<Ligne> lignes = new List<Ligne>();
 
     public Cart()
@@ -28,7 +27,22 @@ internal class Cart
         {
             lignes.Add(new Ligne(article, 1));
         }
+    }
+    public void removeFromCart(Article article)
+    {
 
+        Ligne ligne = lignes.FirstOrDefault(ligne => ligne.Article.Equals(article));
+        if (ligne is not null)
+        {
+            ligne.Quantity -= 1;
+            {
+                lignes.Remove(ligne);
+
+            }
+        }
+
+        {
+        }
     }
     /// <summary>
     /// Méthode qui parcourt la liste d'article et qui calcule son total.
@@ -37,6 +51,7 @@ internal class Cart
     public double TotalCalculate()
     {
         double Total = 0;
+
         for (int i = 0; i < lignes.Count; i++)
         {
             Total = Total + lignes[i].Article.Price * lignes[i].Quantity;
@@ -49,11 +64,15 @@ internal class Cart
         {
             Console.WriteLine($"{lignes[i].Article.Denomination}|prix:{lignes[i].Article.Price * lignes[i].Quantity} | référence:{lignes[i].Article.Ref}|");
         }
-        Console.WriteLine($"total= {Total}€");
+        Console.WriteLine($"total= {TotalCalculate()}€");
     }
 
     public override string? ToString()
     {
         return base.ToString();
+    }
+    public int NombreArticles()
+    {
+        return lignes.Count;
     }
 }
